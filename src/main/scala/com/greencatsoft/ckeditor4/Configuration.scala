@@ -40,6 +40,8 @@ trait Configuration extends js.Object {
 
   var font_names: UndefOr[String] = js.native
 
+  var fontSize_sizes: UndefOr[String] = js.native
+
   var removeButtons: UndefOr[String] = js.native
 
   var stylesSet: UndefOr[String | js.Array[StyleDefinition] | Boolean] = js.native
@@ -88,6 +90,8 @@ object Configuration {
     private var forceMergeBlocks: Option[Boolean] = None
 
     private var fontNames: Seq[String] = Nil
+
+    private var fontSizes: Seq[String] = Nil
 
     private var removeButtons: Option[String] = None
 
@@ -172,6 +176,11 @@ object Configuration {
       this
     }
 
+    def fontSizes(sizes: Seq[String]): this.type = {
+      this.fontSizes = sizes
+      this
+    }
+
     def removeButtons(buttons: String): this.type = {
       this.removeButtons = Some(buttons)
       this
@@ -227,6 +236,10 @@ object Configuration {
 
       if (fontNames.nonEmpty) {
         configuration.font_names = fontNames.mkString(";")
+      }
+
+      if (fontSizes.nonEmpty) {
+        configuration.fontSize_sizes = fontSizes.mkString(";")
       }
 
       if (sharedSpaces.nonEmpty) {
